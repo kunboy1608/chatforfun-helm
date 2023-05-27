@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "chatforfun.fullname" . }}
+  labels:
+    {{- include "chatforfun.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "chatforfun.selectorLabels" . | nindent 4 }}
+  externalName: chatforfun.hoangdp.com
